@@ -51,8 +51,10 @@ class DICOMRecordsService {
     return newRecord;
   }
 
-  findById(id, options) {
-    return DICOMRecord.findByPk(id, options);
+  findById(id) {
+    return DICOMRecord.findByPk(id, {
+      include: [DICOMFile],
+    });
   }
 
   /**

@@ -10,6 +10,7 @@ const {
 const {FileUploadService} = require('./services/file-upload-service');
 const {DICOMReaderService} = require('./services/dicom-reader-service');
 const {DICOMRecordsService} = require('./services/dicom-records-service');
+const {DICOMViewerService} = require('./services/dicom-viewer-service');
 const {
   DICOMRecordCreateValidator,
 } = require('./validators/dicom-record-create-validator');
@@ -20,8 +21,10 @@ const {
 
 const dicomReaderService = new DICOMReaderService();
 const dicomRecordsService = new DICOMRecordsService({dicomReaderService});
+const dicomViewerService = new DICOMViewerService({dicomReaderService});
 const dicomRecordsController = new DICOMRecordsController({
   dicomRecordsService,
+  dicomViewerService,
 });
 const dicomGetAttributeValidator = new DICOMGetAttributeValidator();
 const dicomRecordCreateValidator = new DICOMRecordCreateValidator({
