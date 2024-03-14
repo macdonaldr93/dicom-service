@@ -1,0 +1,5 @@
+const FILE_UPLOAD_DESTINATION = 'tmp/uploads/';
+// 10 MB
+const FILE_UPLOAD_MAX_SIZE = 10 * 1024 * 1024;
+
+module.exports = {FILE_UPLOAD_DESTINATION, FILE_UPLOAD_MAX_SIZE};
