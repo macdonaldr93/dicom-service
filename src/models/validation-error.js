@@ -10,7 +10,7 @@ class ValidationError {
     this.code = attrs.code;
     /**
      * The field where the error happpened
-     * @type {string}
+     * @type {?string}
      */
     this.field = attrs.field;
     /**
@@ -24,6 +24,13 @@ class ValidationError {
    * Serialize error to JSON for response
    */
   toJSON() {
+    if (!this.field) {
+      return {
+        code: this.code,
+        message: this.message,
+      };
+    }
+
     return {
       code: this.code,
       field: this.field,

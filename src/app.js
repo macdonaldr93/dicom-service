@@ -8,16 +8,22 @@ const {
   DICOMRecordsController,
 } = require('./controllers/dicom-records-controller');
 const {FileUploadService} = require('./services/file-upload-service');
+const {DICOMReaderService} = require('./services/dicom-reader-service');
 const {DICOMRecordsService} = require('./services/dicom-records-service');
 const {
   DICOMRecordCreateValidator,
 } = require('./validators/dicom-record-create-validator');
 const {useRoutes} = require('./routes');
+const {
+  DICOMGetAttributeValidator,
+} = require('./validators/dicom-get-attribute-validator');
 
-const dicomRecordsService = new DICOMRecordsService();
+const dicomReaderService = new DICOMReaderService();
+const dicomRecordsService = new DICOMRecordsService({dicomReaderService});
 const dicomRecordsController = new DICOMRecordsController({
   dicomRecordsService,
 });
+const dicomGetAttributeValidator = new DICOMGetAttributeValidator();
 const dicomRecordCreateValidator = new DICOMRecordCreateValidator({
   fileFieldName: dicomRecordsController.fileUploadFieldName,
 });
@@ -32,6 +38,7 @@ const app = express();
 useRoutes(
   {
     dicomFileUploadService,
+    dicomGetAttributeValidator,
     dicomRecordCreateValidator,
     dicomRecordsController,
   },

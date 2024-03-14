@@ -1,5 +1,7 @@
+const {DICOM_TAG_DICTIONARY} = require('../data/dicom-tag-dict');
 const {DICOMFile} = require('../models/dicom-file');
 const {DICOMRecord} = require('../models/dicom-record');
+const {DICOMTag} = require('../models/dicom-tag');
 const {generateFileChecksum} = require('../utils/file-utils');
 
 /**
@@ -42,11 +44,42 @@ class DICOMRecordsService {
 
     await record.save();
 
-    const newRecord = await DICOMRecord.findByPk(record.id, {
+    const newRecord = await this.findById(record.id, {
       include: [DICOMFile],
     });
 
     return newRecord;
+  }
+
+  findById(id, options) {
+    return DICOMRecord.findByPk(id, options);
+  }
+
+  /**
+   * Allows user to retrieve DICOM tag
+   *
+   * @param {object} record The DICOM record
+   * @param {string} ge The group/element of the tag
+   */
+  getDICOMTag(record, tagGE) {
+    const entry = Object.entries(DICOM_TAG_DICTIONARY).find(
+      (pair) => tagGE === pair[1],
+    );
+
+    if (!entry) {
+      return null;
+    }
+
+    const tagName = entry[0];
+    const value = record[tagName];
+
+    if (!value) {
+      return null;
+    }
+
+    const tag = new DICOMTag({name: tagName, ge: tagGE, value});
+
+    return tag;
   }
 
   /**
@@ -54,7 +87,7 @@ class DICOMRecordsService {
    * @private
    */
   async createDICOMFile(file) {
-    const buffer = this.dicomReaderService.readDICOMFileAsBuffer(file);
+    const buffer = this.dicomReaderService.readDICOMFileAsBuffer(file.path);
     const checksum = generateFileChecksum(buffer);
     const dicomFile = new DICOMFile({
       checksum,

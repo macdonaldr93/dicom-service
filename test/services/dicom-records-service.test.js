@@ -4,6 +4,7 @@ const {
 const {db} = require('../../src/db');
 const {DICOMTag} = require('../../src/models/dicom-tag');
 const {DICOMReaderService} = require('../../src/services/dicom-reader-service');
+const {DICOMRecord} = require('../../src/models/dicom-record');
 
 describe('DICOMRecordsService', () => {
   jest.useFakeTimers();
@@ -136,6 +137,57 @@ describe('DICOMRecordsService', () => {
       );
       expect(record.createdAt.toISOString()).toBe('2024-03-14T00:00:00.000Z');
       expect(record.updatedAt.toISOString()).toBe('2024-03-14T00:00:00.000Z');
+    });
+  });
+
+  describe('getDICOMTag()', () => {
+    it('returns a DICOM tag from a record id and group/element', async () => {
+      // Given
+      const record = new DICOMRecord({
+        InstitutionName: 'SUNNYVALE IMAGING CENTER',
+      });
+      await record.save();
+      const service = new DICOMRecordsService();
+
+      // When
+      const tag = service.getDICOMTag(record, 'x00080080');
+
+      // Then
+      expect(tag.toJSON()).toStrictEqual({
+        name: 'InstitutionName',
+        ge: 'x00080080',
+        value: 'SUNNYVALE IMAGING CENTER',
+      });
+    });
+
+    it('returns null if the tag is unknown', async () => {
+      // Given
+      const record = new DICOMRecord({
+        InstitutionName: 'SUNNYVALE IMAGING CENTER',
+      });
+      await record.save();
+      const service = new DICOMRecordsService();
+
+      // When
+      const tag = service.getDICOMTag(record, 'x12080080');
+
+      // Then
+      expect(tag).toBeNull();
+    });
+
+    it('returns null if the tag is unknown to the record', async () => {
+      // Given
+      const record = new DICOMRecord({
+        InstitutionName: 'SUNNYVALE IMAGING CENTER',
+      });
+      await record.save();
+      const service = new DICOMRecordsService();
+
+      // When
+      const tag = service.getDICOMTag(record, 'x00080081');
+
+      // Then
+      expect(tag).toBeNull();
     });
   });
 });

@@ -1,7 +1,7 @@
 /**
  * Serializes a DICOM record and file
  *
- * @param {import('../models/dicom-record')} record The DICOM record with DICOM file eager-loaded
+ * @param {object} record The DICOM record with DICOM file eager-loaded
  *
  * @returns {object} The serialized DICOM record and file
  */
