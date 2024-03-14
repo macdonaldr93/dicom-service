@@ -15,6 +15,7 @@ describe('serializeDICOMTag()', () => {
     const record = new DICOMRecord({id: 1, createdAt: now, updatedAt: now});
 
     expect(serializeDICOMTag(tag, record)).toStrictEqual({
+      id: 'x00100010',
       dicomRecordId: 1,
       ge: 'x00100010',
       name: 'PatientName',

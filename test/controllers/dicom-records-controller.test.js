@@ -101,6 +101,7 @@ describe('DICOMRecordsController', () => {
       expect(resStatus).toHaveBeenCalledWith(200);
       expect(resJson).toHaveBeenCalledWith({
         data: {
+          id: 'x00100010',
           dicomRecordId: 1,
           ge: 'x00080080',
           name: 'InstitutionName',

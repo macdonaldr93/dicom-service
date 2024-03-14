@@ -7,6 +7,7 @@
  */
 function serializeDICOMTag(tag, record) {
   return {
+    id: tag.ge,
     name: tag.name,
     ge: tag.ge,
     value: tag.value,
