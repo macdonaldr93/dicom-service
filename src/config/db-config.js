@@ -1,3 +1,5 @@
+const DB_FORCE_SYNC = process.env.DB_FORCE_SYNC === '1';
+
 const DB_CONFIG = {
   dialect: 'sqlite',
 };
@@ -18,4 +20,4 @@ switch (process.env.NODE_ENV) {
   }
 }
 
-module.exports = {DB_CONFIG};
+module.exports = {DB_CONFIG, DB_FORCE_SYNC};
