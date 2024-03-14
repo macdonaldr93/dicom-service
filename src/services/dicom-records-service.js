@@ -25,9 +25,15 @@ class DICOMRecordsService {
    * @param {Express.Multer.File} file The DICOM file
    */
   async create(file) {
+    this.logger.debug('Creating DICOM file', {file});
+
     const dicomFile = await this.createDICOMFile(file);
     const dicomData = this.dicomReaderService.parseDICOMFile(file.path);
     const dicomTags = this.dicomReaderService.extractDICOMCommonTags(dicomData);
+
+    this.logger.debug('DICOM tags extracted, creating DICOM record', {
+      dicomTags,
+    });
 
     const record = new DICOMRecord({
       DICOMFileId: dicomFile.id,
@@ -45,9 +51,15 @@ class DICOMRecordsService {
     });
 
     await record.save();
+    this.logger.debug('DICOM record created, reloading with DICOM file', {
+      dicomRecord: record.id,
+    });
 
-    const newRecord = await this.findById(record.id, {
-      include: [DICOMFile],
+    const newRecord = await this.findById(record.id);
+
+    this.logger.debug('DICOM record returning', {
+      dicomRecord: newRecord.id,
+      dicomFile: newRecord.DICOMFileId,
     });
 
     return newRecord;
@@ -66,6 +78,10 @@ class DICOMRecordsService {
    * @param {string} ge The group/element of the tag
    */
   getDICOMTag(record, tagGE) {
+    this.logger.debug('Searching for tag in dictionary', {
+      tagGE,
+    });
+
     const entry = Object.entries(DICOM_TAG_DICTIONARY).find(
       (pair) => tagGE === pair[1],
     );
@@ -79,20 +95,32 @@ class DICOMRecordsService {
     }
 
     const tagName = entry[0];
-    const value = record[tagName];
 
-    if (!value) {
-      if (typeof value === 'undefined') {
+    this.logger.debug('Tag found in dictionary', {
+      tagGE,
+      tagName,
+    });
+
+    const tagValue = record[tagName];
+
+    if (!tagValue) {
+      if (typeof tagValue === 'undefined') {
         this.logger.error(
           'Failed to find DICOM tag on DICOM record, consider adding to model',
           {tagName, tagGE},
         );
+      } else {
+        this.logger.debug('Tag has no value', {
+          tagGE,
+          tagName,
+          tagValue,
+        });
       }
 
       return null;
     }
 
-    const tag = new DICOMTag({name: tagName, ge: tagGE, value});
+    const tag = new DICOMTag({name: tagName, ge: tagGE, value: tagValue});
 
     return tag;
   }

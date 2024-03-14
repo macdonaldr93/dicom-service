@@ -21,6 +21,8 @@ class DICOMReaderService {
    * @returns {dicomParser.DataSet} DataSet parsed from dicom-parser
    */
   parseDICOMFile(filePath) {
+    this.logger.debug('Parsing DICOM file', {filePath});
+
     const buffer = this.readDICOMFileAsBuffer(filePath);
 
     if (!buffer) {
@@ -57,12 +59,20 @@ class DICOMReaderService {
       }
 
       const ge = DICOM_COMMON_TAG_DICTIONARY[tagName];
+
+      this.logger.debug('Extracting DICOM tag', {ge, tagName});
+
       const value = dataSet.string(DICOM_COMMON_TAG_DICTIONARY[tagName]);
       const tag = new DICOMTag({name: tagName, ge, value});
 
       if (value) {
         data[tagName] = tag;
       } else {
+        this.logger.debug('DICOM tag empty, setting value to null', {
+          ge,
+          tagName,
+        });
+
         data[tagName] = null;
       }
     }

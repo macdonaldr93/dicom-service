@@ -52,6 +52,11 @@ class DICOMViewerService {
    * @returns {string} The PNG file path
    */
   createPNG(path, file) {
+    this.logger.debug('Creating new PNG from DICOM file', {
+      dicomFile: file.id,
+      path,
+    });
+
     const dataSet = this.dicomReaderService.parseDICOMFile(file.url);
     const pixelDataElement = dataSet.elements[DICOM_TAG_DICTIONARY.PixelData];
     const pixelData = new Uint16Array(
