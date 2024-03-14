@@ -1,4 +1,4 @@
-const {app} = require('./app');
+const {createApp} = require('./app');
 const {db} = require('./db');
 const {logger} = require('./logger');
 
@@ -10,12 +10,14 @@ logger.info(`⏳ Attempting database sync`);
 db.sync({force: forceSync})
   .then(() => {
     logger.info(`✅ Database synchronized`);
-
+    return createApp();
+  })
+  .then((app) => {
     app.listen(port, () => {
       logger.info(`🚀 Example app listening on port ${port}`);
     });
   })
   .catch((err) => {
-    logger.error(`❌ Database failed to sync`);
+    logger.error(`❌ Something went wrong starting the app`);
     logger.error(err);
   });

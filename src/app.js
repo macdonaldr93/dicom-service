@@ -1,3 +1,4 @@
+const {v4} = require('uuid');
 const express = require('express');
 const pinoHttp = require('pino-http');
 
@@ -15,39 +16,60 @@ const {DICOMViewerService} = require('./services/dicom-viewer-service');
 const {
   DICOMRecordCreateValidator,
 } = require('./validators/dicom-record-create-validator');
-const {buildRoutes} = require('./routes');
 const {
   DICOMGetAttributeValidator,
 } = require('./validators/dicom-get-attribute-validator');
+const {logger} = require('./logger');
+const {buildRoutes} = require('./routes');
 
-const dicomReaderService = new DICOMReaderService();
-const dicomRecordsService = new DICOMRecordsService({dicomReaderService});
-const dicomViewerService = new DICOMViewerService({dicomReaderService});
-const dicomRecordsController = new DICOMRecordsController({
-  dicomRecordsService,
-  dicomViewerService,
-});
-const dicomGetAttributeValidator = new DICOMGetAttributeValidator();
-const dicomRecordCreateValidator = new DICOMRecordCreateValidator({
-  fileFieldName: dicomRecordsController.fileUploadFieldName,
-});
-const dicomFileUploadService = new FileUploadService({
-  destination: FILE_UPLOAD_DESTINATION,
-  fileFieldName: dicomRecordsController.fileUploadFieldName,
-  fileMaxSize: FILE_UPLOAD_MAX_SIZE,
-});
+async function createApp() {
+  const {default: requestID} = await import('express-request-id');
 
-const app = express();
+  const dicomReaderService = new DICOMReaderService();
+  const dicomRecordsService = new DICOMRecordsService({dicomReaderService});
+  const dicomViewerService = new DICOMViewerService({dicomReaderService});
+  const dicomRecordsController = new DICOMRecordsController({
+    dicomRecordsService,
+    dicomViewerService,
+  });
+  const dicomGetAttributeValidator = new DICOMGetAttributeValidator();
+  const dicomRecordCreateValidator = new DICOMRecordCreateValidator({
+    fileFieldName: dicomRecordsController.fileUploadFieldName,
+  });
+  const dicomFileUploadService = new FileUploadService({
+    destination: FILE_UPLOAD_DESTINATION,
+    fileFieldName: dicomRecordsController.fileUploadFieldName,
+    fileMaxSize: FILE_UPLOAD_MAX_SIZE,
+  });
 
-app.use(pinoHttp());
+  const app = express();
 
-const routes = buildRoutes({
-  dicomFileUploadService,
-  dicomGetAttributeValidator,
-  dicomRecordCreateValidator,
-  dicomRecordsController,
-});
+  app.use(requestID());
+  app.use(
+    pinoHttp({
+      logger,
+      genReqId: (req, res) => {
+        const existingID = req.id ?? req.headers['x-request-id'];
+        if (existingID) {
+          return existingID;
+        }
+        const id = v4();
+        res.setHeader('X-Request-Id', id);
+        return id;
+      },
+    }),
+  );
 
-app.use('/api/2024-03', routes);
+  const routes = buildRoutes({
+    dicomFileUploadService,
+    dicomGetAttributeValidator,
+    dicomRecordCreateValidator,
+    dicomRecordsController,
+  });
 
-module.exports = {app};
+  app.use('/api/2024-03', routes);
+
+  return app;
+}
+
+module.exports = {createApp};
