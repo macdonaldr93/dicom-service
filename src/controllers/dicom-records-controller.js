@@ -17,8 +17,8 @@ class DICOMRecordsController {
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
    */
-  create(_req, res) {
-    const record = new DICOMRecord();
+  create(req, res) {
+    const record = DICOMRecord.fromFile(req.file);
 
     res.status(201).json({data: serializeDICOMRecord(record)});
   }
