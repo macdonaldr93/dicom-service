@@ -6,19 +6,21 @@ const host = process.env.HOST || 'localhost';
 const port = process.env.PORT || 3000;
 const forceSync = process.env.FORCE_SYNC === '1';
 
-logger.info(`⏳ Attempting database sync`);
+async function main() {
+  try {
+    logger.debug(`⏳ Attempting database sync`);
+    await db.sync({force: forceSync});
+    logger.debug(`✅ Database synchronized`);
 
-db.sync({force: forceSync})
-  .then(() => {
-    logger.info(`✅ Database synchronized`);
-    return createApp();
-  })
-  .then((app) => {
+    const app = await createApp();
+
     app.listen(port, host, () => {
-      logger.info(`🚀 Example app listening on port ${port}`);
+      logger.info(`🚀 DICOM service ready at ${host}:${port}`);
     });
-  })
-  .catch((err) => {
+  } catch (err) {
     logger.error(`❌ Something went wrong starting the app`);
     logger.error(err);
-  });
+  }
+}
+
+main();
