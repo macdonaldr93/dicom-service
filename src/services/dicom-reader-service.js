@@ -2,21 +2,8 @@ const {readFileSync, existsSync} = require('fs');
 
 const dicomParser = require('dicom-parser');
 
+const {DICOM_COMMON_TAG_DICTIONARY} = require('../data/dicom-tag-dict');
 const {DICOMTag} = require('../models/dicom-tag');
-
-const DICOM_COMMON_TAG_DICTIONARY = {
-  AccessionNumber: 'x00080050',
-  ImageType: 'x00080008',
-  InstitutionAddress: 'x00080081',
-  InstitutionName: 'x00080080',
-  Manufacturer: 'x00080070',
-  PatientID: 'x00100020',
-  PatientName: 'x00100010',
-  PatientSex: 'x00100040',
-  ReferringPhysicianName: 'x00080090',
-  SOPClassUID: 'x00080016',
-  SOPInstanceUID: 'x00080018',
-};
 
 /**
  * Service for reading DICOM files
