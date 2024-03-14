@@ -1,4 +1,3 @@
-const {DICOMRecord} = require('../models/dicom-record');
 const {
   serializeDICOMRecord,
 } = require('../serializers/dicom-record-serializer');
@@ -7,7 +6,13 @@ const {
  * DICOM records controller
  */
 class DICOMRecordsController {
-  constructor() {
+  /**
+   *
+   * @param {object} deps Injected dependencies
+   * @param {import('../services/dicom-records-service')} dicomRecordsService The DICOM records service
+   */
+  constructor(deps = {}) {
+    this.dicomRecordsService = deps.dicomRecordsService;
     this.fileUploadFieldName = 'dicomFile';
   }
 
@@ -17,9 +22,8 @@ class DICOMRecordsController {
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
    */
-  create(req, res) {
-    const record = DICOMRecord.fromFile(req.file);
-
+  async create(req, res) {
+    const record = await this.dicomRecordsService.create(req.file);
     res.status(201).json({data: serializeDICOMRecord(record)});
   }
 }

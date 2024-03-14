@@ -1,24 +1,26 @@
-const {v4} = require('uuid');
+const {DataTypes} = require('sequelize');
 
-class DICOMRecord {
-  /**
-   *
-   * @param {Express.Multer.File} file Uploaded file
-   */
-  static fromFile(file) {
-    return new DICOMRecord({
-      fileOriginalName: file.originalname,
-      fileUploadedAt: new Date(),
-      fileUrl: file.path,
-    });
-  }
+const {db} = require('../db');
 
-  constructor(attrs = {}) {
-    this.id = attrs.id || v4();
-    this.fileOriginalName = attrs.fileOriginalName || null;
-    this.fileUrl = attrs.fileUrl || null;
-    this.fileUploadedAt = attrs.fileUploadedAt || null;
-  }
-}
+const {DICOMFile} = require('./dicom-file');
+
+/**
+ * The DICOM record for metadata and reference to file
+ */
+const DICOMRecord = db.define(
+  'DICOMRecord',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
+
+DICOMRecord.belongsTo(DICOMFile);
 
 module.exports = {DICOMRecord};

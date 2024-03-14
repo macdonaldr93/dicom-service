@@ -8,12 +8,16 @@ const {
   DICOMRecordsController,
 } = require('./controllers/dicom-records-controller');
 const {FileUploadService} = require('./services/file-upload-service');
+const {DICOMRecordsService} = require('./services/dicom-records-service');
 const {
   DICOMRecordCreateValidator,
 } = require('./validators/dicom-record-create-validator');
 const {useRoutes} = require('./routes');
 
-const dicomRecordsController = new DICOMRecordsController();
+const dicomRecordsService = new DICOMRecordsService();
+const dicomRecordsController = new DICOMRecordsController({
+  dicomRecordsService,
+});
 const dicomRecordCreateValidator = new DICOMRecordCreateValidator({
   fileFieldName: dicomRecordsController.fileUploadFieldName,
 });
