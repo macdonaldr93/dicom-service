@@ -4,6 +4,9 @@ const {
 const {db} = require('../../src/db');
 
 describe('DICOMRecordsService', () => {
+  jest.useFakeTimers();
+  jest.setSystemTime(new Date('2024-03-14T00:00:00.000Z'));
+
   beforeEach(async () => {
     await db.sync();
   });
@@ -13,9 +16,6 @@ describe('DICOMRecordsService', () => {
   });
 
   describe('create()', () => {
-    jest.useFakeTimers();
-    jest.setSystemTime(new Date('2024-03-14T00:00:00.000Z'));
-
     it('creates a DICOM file and record', async () => {
       // Given
       const file = {
@@ -27,6 +27,10 @@ describe('DICOMRecordsService', () => {
       };
       const service = new DICOMRecordsService();
 
+      jest
+        .spyOn(service, 'readDICOMFile')
+        .mockImplementation(() => Buffer.from('1233'));
+
       // When
       const record = await service.create(file);
 
@@ -34,7 +38,8 @@ describe('DICOMRecordsService', () => {
       expect(record.toJSON()).toStrictEqual(
         expect.objectContaining({
           DICOMFile: expect.objectContaining({
-            checksum: '',
+            checksum:
+              '4654d793972c3b6a1d48fb0ab58d9cb0de46c3d33d605f9222c283dfaa12d420',
             contentType: 'application/octet-stream',
             name: '1',
             originalName: 'IM0001',
