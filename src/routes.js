@@ -26,6 +26,10 @@ function useRoutes(deps, app) {
       (req, res) => dicomRecordsController.create(req, res),
     );
 
+  app.route('/dicom-records/:id.png').get((req, res) => {
+    dicomRecordsController.viewAsImage(req, res);
+  });
+
   app
     .route('/dicom-records/:id/attr')
     .get(dicomGetAttributeValidator.middleware(), (req, res) =>

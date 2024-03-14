@@ -1,3 +1,5 @@
+const path = require('path');
+
 const {ValidationError} = require('../models/validation-error');
 const {
   serializeDICOMRecord,
@@ -11,10 +13,12 @@ class DICOMRecordsController {
   /**
    *
    * @param {object} deps Injected dependencies
-   * @param {import('../services/dicom-records-service').DICOMRecordsService} dicomRecordsService The DICOM records service
+   * @param {import('../services/dicom-records-service').DICOMRecordsService} deps.dicomRecordsService The DICOM records service
+   * @param {import('../services/dicom-viewer-service').DICOMViewerService} deps.dicomViewerService The DICOM viewer service
    */
   constructor(deps = {}) {
     this.dicomRecordsService = deps.dicomRecordsService;
+    this.dicomViewerService = deps.dicomViewerService;
     this.fileUploadFieldName = 'dicomFile';
   }
 
@@ -35,7 +39,6 @@ class DICOMRecordsController {
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
    */
-  async getDICOMAttribute(req, res) {
   async getTag(req, res) {
     const record = await this.dicomRecordsService.findById(req.params.id);
 
@@ -67,6 +70,32 @@ class DICOMRecordsController {
     }
 
     res.status(200).json({data: serializeDICOMTag(tag, record)});
+  }
+
+  /**
+   * View DICOM as PNG image
+   *
+   * @param {import('express').Request} req The Express request
+   * @param {import('express').Response} res The Express response
+   */
+  async viewAsImage(req, res) {
+    const record = await this.dicomRecordsService.findById(req.params.id);
+
+    if (!record) {
+      res.status(404).json({
+        errors: [
+          new ValidationError({
+            code: 'not_found',
+            message: 'DICOM record not found',
+          }),
+        ],
+      });
+      return;
+    }
+
+    const png = this.dicomViewerService.viewAsPNG(record.DICOMFile);
+
+    res.status(200).sendFile(png.path, {root: path.join(__dirname, '../..')});
   }
 }
 
