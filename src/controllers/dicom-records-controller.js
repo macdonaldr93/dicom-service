@@ -34,7 +34,7 @@ class DICOMRecordsController {
    *
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
-   * @param {import('express').NextFunction} res The Express next function
+   * @param {import('express').NextFunction} next The Express next function
    */
   async create(req, res, next) {
     try {
@@ -53,10 +53,9 @@ class DICOMRecordsController {
 
       return res.status(201).json({data: serializeDICOMRecord(record)});
     } catch (err) {
-      // Log to error reporter
       if (err.name === 'SequelizeValidationError') {
         const errors = serializeSequelizeValidationError(err);
-        res.status(422).json({errors});
+        return res.status(422).json({errors});
       }
 
       return next(err);
@@ -68,38 +67,41 @@ class DICOMRecordsController {
    *
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
+   * @param {import('express').NextFunction} next The Express next function
    */
-  async getTag(req, res) {
-    const record = await this.dicomRecordsService.findById(req.params.id);
+  async getTag(req, res, next) {
+    try {
+      const record = await this.dicomRecordsService.findById(req.params.id);
 
-    if (!record) {
-      res.status(404).json({
-        errors: [
-          new ValidationError({
-            code: 'not_found',
-            message: 'DICOM record not found',
-          }),
-        ],
-      });
-      return;
+      if (!record) {
+        return res.status(404).json({
+          errors: [
+            new ValidationError({
+              code: 'not_found',
+              message: 'DICOM record not found',
+            }),
+          ],
+        });
+      }
+
+      const ge = req.query.ge;
+      const tag = this.dicomRecordsService.getDICOMTag(record, ge);
+
+      if (!tag) {
+        return res.status(404).json({
+          errors: [
+            new ValidationError({
+              code: 'not_found',
+              message: 'DICOM tag not found',
+            }),
+          ],
+        });
+      }
+
+      return res.status(200).json({data: serializeDICOMTag(tag, record)});
+    } catch (err) {
+      return next(err);
     }
-
-    const ge = req.query.ge;
-    const tag = this.dicomRecordsService.getDICOMTag(record, ge);
-
-    if (!tag) {
-      res.status(404).json({
-        errors: [
-          new ValidationError({
-            code: 'not_found',
-            message: 'DICOM tag not found',
-          }),
-        ],
-      });
-      return;
-    }
-
-    res.status(200).json({data: serializeDICOMTag(tag, record)});
   }
 
   /**
@@ -107,25 +109,29 @@ class DICOMRecordsController {
    *
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
+   * @param {import('express').NextFunction} next The Express next function
    */
-  async viewAsImage(req, res) {
-    const record = await this.dicomRecordsService.findById(req.params.id);
+  async viewAsImage(req, res, next) {
+    try {
+      const record = await this.dicomRecordsService.findById(req.params.id);
 
-    if (!record) {
-      res.status(404).json({
-        errors: [
-          new ValidationError({
-            code: 'not_found',
-            message: 'DICOM record not found',
-          }),
-        ],
-      });
-      return;
+      if (!record) {
+        return res.status(404).json({
+          errors: [
+            new ValidationError({
+              code: 'not_found',
+              message: 'DICOM record not found',
+            }),
+          ],
+        });
+      }
+
+      const png = this.dicomViewerService.viewAsPNG(record.DICOMFile);
+
+      return res.status(200).sendFile(png.path, {root: ROOT});
+    } catch (err) {
+      return next(err);
     }
-
-    const png = this.dicomViewerService.viewAsPNG(record.DICOMFile);
-
-    res.status(200).sendFile(png.path, {root: ROOT});
   }
 }
 
