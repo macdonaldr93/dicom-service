@@ -2,6 +2,7 @@ const {readFileSync, existsSync} = require('fs');
 
 const dicomParser = require('dicom-parser');
 
+const {logger} = require('../logger');
 const {DICOM_COMMON_TAG_DICTIONARY} = require('../data/dicom-tag-dict');
 const {DICOMTag} = require('../models/dicom-tag');
 
@@ -9,6 +10,10 @@ const {DICOMTag} = require('../models/dicom-tag');
  * Service for reading DICOM files
  */
 class DICOMReaderService {
+  constructor() {
+    this.logger = logger.child({module: 'DICOMReaderService'});
+  }
+
   /**
    * Parses the DataSet from the DICOM file
    *
@@ -19,6 +24,7 @@ class DICOMReaderService {
     const buffer = this.readDICOMFileAsBuffer(filePath);
 
     if (!buffer) {
+      this.logger.error('Failed to read DICOM file', {filePath});
       return null;
     }
 
@@ -31,6 +37,7 @@ class DICOMReaderService {
     if (existsSync(filePath)) {
       return readFileSync(filePath);
     } else {
+      this.logger.error('DICOM file not found', {filePath});
       return null;
     }
   }

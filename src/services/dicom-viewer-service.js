@@ -2,6 +2,7 @@ const {existsSync, writeFileSync} = require('fs');
 
 const {PNG} = require('pngjs');
 
+const {logger} = require('../logger');
 const {DICOM_TAG_DICTIONARY} = require('../data/dicom-tag-dict');
 
 const DEFAULT_WINDOW_CENTER = 128;
@@ -18,6 +19,7 @@ class DICOMViewerService {
    */
   constructor(deps = {}) {
     this.dicomReaderService = deps.dicomReaderService;
+    this.logger = logger.child({module: 'DICOMViewerService'});
   }
 
   /**
@@ -31,9 +33,11 @@ class DICOMViewerService {
     const pngPath = this.getPNGPath(file);
 
     if (this.hasCachedPNG(pngPath)) {
+      this.logger.info('DICOM file PNG cache hit');
       return {path: pngPath, cached: true};
     }
 
+    this.logger.info('DICOM file PNG cache miss');
     this.createPNG(pngPath, file);
 
     return {path: pngPath, cached: false};

@@ -1,20 +1,21 @@
 const {app} = require('./app');
 const {db} = require('./db');
+const {logger} = require('./logger');
 
 const port = process.env.PORT || 3000;
 const forceSync = process.env.FORCE_SYNC === '1';
 
-console.log(`⏳ Attempting database sync`);
+logger.info(`⏳ Attempting database sync`);
 
 db.sync({force: forceSync})
   .then(() => {
-    console.log(`✅ Database synchronized`);
+    logger.info(`✅ Database synchronized`);
 
     app.listen(port, () => {
-      console.log(`🚀 Example app listening on port ${port}`);
+      logger.info(`🚀 Example app listening on port ${port}`);
     });
   })
   .catch((err) => {
-    console.error(`❌ Database failed to sync`);
-    console.error(err);
+    logger.error(`❌ Database failed to sync`);
+    logger.error(err);
   });

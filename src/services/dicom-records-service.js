@@ -1,4 +1,5 @@
 const {DICOM_TAG_DICTIONARY} = require('../data/dicom-tag-dict');
+const {logger} = require('../logger');
 const {DICOMFile} = require('../models/dicom-file');
 const {DICOMRecord} = require('../models/dicom-record');
 const {DICOMTag} = require('../models/dicom-tag');
@@ -15,6 +16,7 @@ class DICOMRecordsService {
    */
   constructor(deps = {}) {
     this.dicomReaderService = deps.dicomReaderService;
+    this.logger = logger.child({module: 'DICOMRecordsService'});
   }
 
   /**
@@ -69,6 +71,10 @@ class DICOMRecordsService {
     );
 
     if (!entry) {
+      this.logger.error(
+        'Failed to find DICOM tag, tag is unknown to application',
+        {tagGE},
+      );
       return null;
     }
 
@@ -76,6 +82,13 @@ class DICOMRecordsService {
     const value = record[tagName];
 
     if (!value) {
+      if (typeof value === 'undefined') {
+        this.logger.error(
+          'Failed to find DICOM tag on DICOM record, consider adding to model',
+          {tagName, tagGE},
+        );
+      }
+
       return null;
     }
 

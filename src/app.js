@@ -1,4 +1,5 @@
 const express = require('express');
+const pinoHttp = require('pino-http');
 
 const {
   FILE_UPLOAD_DESTINATION,
@@ -37,6 +38,8 @@ const dicomFileUploadService = new FileUploadService({
 });
 
 const app = express();
+
+app.use(pinoHttp());
 
 useRoutes(
   {

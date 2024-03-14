@@ -6,6 +6,8 @@ const {
 } = require('../serializers/dicom-record-serializer');
 const {serializeDICOMTag} = require('../serializers/dicom-tag-serializer');
 
+const ROOT = path.join(__dirname, '../..');
+
 /**
  * DICOM records controller
  */
@@ -95,7 +97,7 @@ class DICOMRecordsController {
 
     const png = this.dicomViewerService.viewAsPNG(record.DICOMFile);
 
-    res.status(200).sendFile(png.path, {root: path.join(__dirname, '../..')});
+    res.status(200).sendFile(png.path, {root: ROOT});
   }
 }
 
