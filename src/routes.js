@@ -29,7 +29,7 @@ function useRoutes(deps, app) {
   app
     .route('/dicom-records/:id/attr')
     .get(dicomGetAttributeValidator.middleware(), (req, res) =>
-      dicomRecordsController.getDICOMAttribute(req, res),
+      dicomRecordsController.getTag(req, res),
     );
 }
 

@@ -74,7 +74,7 @@ describe('DICOMRecordsController', () => {
     });
   });
 
-  describe('getDICOMAttribute()', () => {
+  describe('getTag()', () => {
     it('responds with a DICOM tag when record is found and ge matches', async () => {
       // Given
       const record = new DICOMRecord({
@@ -95,7 +95,7 @@ describe('DICOMRecordsController', () => {
       };
 
       // When
-      await controller.getDICOMAttribute(req, res);
+      await controller.getTag(req, res);
 
       // Then
       expect(resStatus).toHaveBeenCalledWith(200);
@@ -121,7 +121,7 @@ describe('DICOMRecordsController', () => {
       };
 
       // When
-      await controller.getDICOMAttribute(req, res);
+      await controller.getTag(req, res);
 
       // Then
       expect(resStatus).toHaveBeenCalledWith(404);
@@ -147,7 +147,7 @@ describe('DICOMRecordsController', () => {
       };
 
       // When
-      await controller.getDICOMAttribute(req, res);
+      await controller.getTag(req, res);
 
       // Then
       expect(resStatus).toHaveBeenCalledWith(404);

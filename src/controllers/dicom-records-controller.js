@@ -36,6 +36,7 @@ class DICOMRecordsController {
    * @param {import('express').Response} res The Express response
    */
   async getDICOMAttribute(req, res) {
+  async getTag(req, res) {
     const record = await this.dicomRecordsService.findById(req.params.id);
 
     if (!record) {
@@ -51,7 +52,7 @@ class DICOMRecordsController {
     }
 
     const ge = req.query.ge;
-    const tag = await this.dicomRecordsService.getDICOMTag(record, ge);
+    const tag = this.dicomRecordsService.getDICOMTag(record, ge);
 
     if (!tag) {
       res.status(404).json({
