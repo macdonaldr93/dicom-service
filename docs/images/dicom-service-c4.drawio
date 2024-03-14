@@ -1,0 +1,188 @@
+<mxfile host="app.diagrams.net" modified="2024-03-14T13:42:01.901Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" etag="T703hqqgo4z0zGRycUhw" version="22.1.18" type="device">
+  <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
+    <mxGraphModel dx="2206" dy="1171" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-2" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="10" y="190" width="1040" height="610" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-0" value="DICOM Service | Component diagram" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="10" y="10" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-1" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="60" y="70" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-5" target="PVmqU7dUtUpFM0oI26Ke-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-5" value="DICOMCreateValidator" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="20" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-6" value="Disk Storage / &lt;br style=&quot;font-size: 10px;&quot;&gt;Cloud Storage" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="645" y="900" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-9" target="PVmqU7dUtUpFM0oI26Ke-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-34" value="Uploaded File" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-32">
+          <mxGeometry x="-0.2976" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-9" value="FileUploadService&lt;br&gt;&lt;br&gt;&lt;i&gt;Uploads files to storage&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="20" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-12" target="PVmqU7dUtUpFM0oI26Ke-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-12" value="DICOMRecordController&lt;br&gt;&lt;br&gt;&lt;i&gt;Allows users to create DICOM records&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="20" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="80" y="190" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="80" y="188" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-27" value="Uploads a DICOM file&lt;br&gt;POST /dicom-records" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-26">
+          <mxGeometry x="-0.2579" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=50;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-9" target="PVmqU7dUtUpFM0oI26Ke-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="430" />
+              <mxPoint x="440" y="620" />
+              <mxPoint x="695" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-29" value="Write file to storage" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-28">
+          <mxGeometry x="-0.0268" y="1" relative="1" as="geometry">
+            <mxPoint x="-158" y="-189" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-31" target="PVmqU7dUtUpFM0oI26Ke-35">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="290" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-37" value="Write file metadata to db" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-36">
+          <mxGeometry x="-0.3065" y="-3" relative="1" as="geometry">
+            <mxPoint x="-67" y="-23" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-68" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-31" target="PVmqU7dUtUpFM0oI26Ke-66">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-31" value="DICOMRecordService&lt;br&gt;&lt;br&gt;&lt;i&gt;Creates DICOM record&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="20" y="524" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-35" value="Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="260" y="910" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-38" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="510" y="70" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-38" target="PVmqU7dUtUpFM0oI26Ke-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-40" value="Requests a record attribute&lt;br&gt;GET /dicom-records/:id/attribute" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-39">
+          <mxGeometry x="-0.2367" y="1" relative="1" as="geometry">
+            <mxPoint y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-43" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-41" target="PVmqU7dUtUpFM0oI26Ke-42">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-41" value="DICOMRecordController&lt;br&gt;&lt;br&gt;&lt;i&gt;Allows users to retrieve DICOM records&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="480" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-45" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-42" target="PVmqU7dUtUpFM0oI26Ke-44">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-42" value="DICOMGetAttrValidator" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="480" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-44" value="DICOMRecordService&lt;br&gt;&lt;br&gt;&lt;i&gt;Fetches DICOM record&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="480" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-50" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="950" y="70" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-58" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-52" target="PVmqU7dUtUpFM0oI26Ke-54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-52" value="DICOMRecordController&lt;br&gt;&lt;br&gt;&lt;i&gt;Allows users to retrieve DICOM records&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="920" y="200" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-54" target="PVmqU7dUtUpFM0oI26Ke-59">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-54" value="DICOMRecordService&lt;br&gt;&lt;br&gt;&lt;i&gt;Fetches DICOM record&lt;/i&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="920" y="300" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.924;entryY=-0.002;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-50" target="PVmqU7dUtUpFM0oI26Ke-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-57" value="Views a DICOM image&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;GET /dicom-records/:id.png" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-56">
+          <mxGeometry x="-0.0743" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-59" value="DICOMViewerService" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="920" y="400" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=50;entryDy=0;entryPerimeter=0;strokeWidth=2;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-59" target="PVmqU7dUtUpFM0oI26Ke-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="980" y="620" />
+              <mxPoint x="695" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-65" value="Attempt to retrieve image first.&lt;br&gt;If not found, retrieve file, generate and save image.&lt;br&gt;Return image." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-62">
+          <mxGeometry x="-0.5633" relative="1" as="geometry">
+            <mxPoint x="-130" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-66" value="DICOMReaderService" style="rounded=0;whiteSpace=wrap;html=1;fontSize=10;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="20" y="660" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-70" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-44" target="PVmqU7dUtUpFM0oI26Ke-35">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="540" y="550" />
+              <mxPoint x="290" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-72" value="Look up record" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-70">
+          <mxGeometry x="-0.8901" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="PVmqU7dUtUpFM0oI26Ke-54" target="PVmqU7dUtUpFM0oI26Ke-35">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="790" y="330" />
+              <mxPoint x="790" y="550" />
+              <mxPoint x="290" y="550" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PVmqU7dUtUpFM0oI26Ke-73" value="Look up record" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="PVmqU7dUtUpFM0oI26Ke-71">
+          <mxGeometry x="-0.8572" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
