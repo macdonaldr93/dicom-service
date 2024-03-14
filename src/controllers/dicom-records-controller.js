@@ -7,6 +7,10 @@ const {
  * DICOM records controller
  */
 class DICOMRecordsController {
+  constructor() {
+    this.fileUploadFieldName = 'dicomFile';
+  }
+
   /**
    * Allows user to create DICOM records
    *

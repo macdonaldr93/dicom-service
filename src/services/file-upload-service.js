@@ -8,12 +8,12 @@ class FileUploadService {
   /**
    * @param {object} options File upload service options
    * @param {string} options.destination Destination the files will be uploaded on disk
-   * @param {number} options.maxFileSize Max file size for an upload
-   *
+   * @param {number} options.fileMaxSize File max size for an upload
+   * @param {string} options.fileFieldName The field name on the Express request body for the file
    */
   constructor(options = {}) {
     const destination = options.destination || 'tmp/uploads/';
-    const maxFileSize = options.maxFileSize;
+    const fileMaxSize = options.fileMaxSize;
     const storage = multer.diskStorage({
       destination,
       filename: (_req, _file, cb) => {
@@ -21,21 +21,20 @@ class FileUploadService {
       },
     });
 
+    this.fileFieldName = options.fileFieldName || 'file';
     this.uploader = multer({
       storage,
-      ...(maxFileSize
+      ...(fileMaxSize
         ? {
-            limits: {fileSize: maxFileSize},
+            limits: {fileSize: fileMaxSize},
           }
         : {}),
     });
+    this.middleware = this.middleware.bind(this);
   }
 
-  /**
-   * @param {string} attribute Name of the multipart form field to process.
-   */
-  middleware(attribute = 'file') {
-    return this.uploader.single(attribute);
+  middleware() {
+    return this.uploader.single(this.fileFieldName);
   }
 }
 
