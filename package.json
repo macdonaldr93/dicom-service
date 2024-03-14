@@ -9,9 +9,9 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "dev": "nodemon src/index.js | pino-pretty",
+    "dev": "NODE_ENV=development nodemon src/index.js | pino-pretty",
     "lint": "eslint . --cache",
-    "start": "node src/index.js",
+    "start": "NODE_ENV=production node src/index.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watch --runInBand"
   },

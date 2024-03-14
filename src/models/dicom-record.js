@@ -15,6 +15,10 @@ const DICOMRecord = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
+    Handle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     AccessionNumber: {
       type: DataTypes.STRING,
       allowNull: true,

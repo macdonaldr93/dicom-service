@@ -9,6 +9,7 @@ const {
 const {
   DICOMRecordsController,
 } = require('./controllers/dicom-records-controller');
+const {ErrorHandlerService} = require('./services/error-handler-service');
 const {FileUploadService} = require('./services/file-upload-service');
 const {DICOMReaderService} = require('./services/dicom-reader-service');
 const {DICOMRecordsService} = require('./services/dicom-records-service');
@@ -41,6 +42,7 @@ async function createApp() {
     fileFieldName: dicomRecordsController.fileUploadFieldName,
     fileMaxSize: FILE_UPLOAD_MAX_SIZE,
   });
+  const errorHandlerService = new ErrorHandlerService();
 
   const app = express();
 
@@ -68,6 +70,7 @@ async function createApp() {
   });
 
   app.use('/api/2024-03', routes);
+  app.use(errorHandlerService.middleware());
 
   return app;
 }

@@ -27,17 +27,17 @@ function buildRoutes(deps) {
         dicomFileUploadService.middleware(),
         dicomRecordCreateValidator.middleware(),
       ],
-      (req, res) => dicomRecordsController.create(req, res),
+      (req, res, next) => dicomRecordsController.create(req, res, next),
     );
 
-  router.route('/dicom-records/:id.png').get((req, res) => {
-    dicomRecordsController.viewAsImage(req, res);
+  router.route('/dicom-records/:id.png').get((req, res, next) => {
+    dicomRecordsController.viewAsImage(req, res, next);
   });
 
   router
     .route('/dicom-records/:id/attr')
-    .get(dicomGetAttributeValidator.middleware(), (req, res) =>
-      dicomRecordsController.getTag(req, res),
+    .get(dicomGetAttributeValidator.middleware(), (req, res, next) =>
+      dicomRecordsController.getTag(req, res, next),
     );
 
   return router;

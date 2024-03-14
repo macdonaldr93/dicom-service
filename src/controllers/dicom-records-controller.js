@@ -5,6 +5,10 @@ const {
   serializeDICOMRecord,
 } = require('../serializers/dicom-record-serializer');
 const {serializeDICOMTag} = require('../serializers/dicom-tag-serializer');
+const {
+  serializeSequelizeValidationError,
+} = require('../serializers/sequelize-validation-error-serializer');
+const {logger} = require('../logger');
 
 const ROOT = path.join(__dirname, '../..');
 
@@ -22,6 +26,7 @@ class DICOMRecordsController {
     this.dicomRecordsService = deps.dicomRecordsService;
     this.dicomViewerService = deps.dicomViewerService;
     this.fileUploadFieldName = 'dicomFile';
+    this.logger = logger.child({module: 'DICOMRecordsController'});
   }
 
   /**
@@ -29,10 +34,33 @@ class DICOMRecordsController {
    *
    * @param {import('express').Request} req The Express request
    * @param {import('express').Response} res The Express response
+   * @param {import('express').NextFunction} res The Express next function
    */
-  async create(req, res) {
-    const record = await this.dicomRecordsService.create(req.file);
-    res.status(201).json({data: serializeDICOMRecord(record)});
+  async create(req, res, next) {
+    try {
+      const record = await this.dicomRecordsService.create(req.file);
+
+      if (!record) {
+        res.status(500).json({
+          errors: [
+            new ValidationError({
+              code: 'internal_error',
+              message: 'DICOM record failed to create',
+            }),
+          ],
+        });
+      }
+
+      return res.status(201).json({data: serializeDICOMRecord(record)});
+    } catch (err) {
+      // Log to error reporter
+      if (err.name === 'SequelizeValidationError') {
+        const errors = serializeSequelizeValidationError(err);
+        res.status(422).json({errors});
+      }
+
+      return next(err);
+    }
   }
 
   /**
