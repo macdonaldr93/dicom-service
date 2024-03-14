@@ -1,18 +1,19 @@
-const {
-  DICOMRecordsController,
-} = require('./controllers/dicom-records-controller');
-
 /**
  * Attach routes to Express app
  *
+ * @param {object} deps The injected dependencies
+ * @param {DICOMRecordsController} deps.dicomRecordsController The DICOM records controller
  * @param {import('express').Express} app The Express app
  */
-function useRoutes(app) {
-  const dicomRecordsController = new DICOMRecordsController();
+function useRoutes(deps, app) {
+  const {dicomRecordsController, fileUploadService} = deps;
 
   app
     .route('/dicom-records')
-    .post((req, res) => dicomRecordsController.create(req, res));
+    .post(
+      fileUploadService.middleware(dicomRecordsController.fileUploadAttribute),
+      (req, res) => dicomRecordsController.create(req, res),
+    );
 }
 
 module.exports = {useRoutes};
