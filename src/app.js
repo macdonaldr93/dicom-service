@@ -15,7 +15,7 @@ const {DICOMViewerService} = require('./services/dicom-viewer-service');
 const {
   DICOMRecordCreateValidator,
 } = require('./validators/dicom-record-create-validator');
-const {useRoutes} = require('./routes');
+const {buildRoutes} = require('./routes');
 const {
   DICOMGetAttributeValidator,
 } = require('./validators/dicom-get-attribute-validator');
@@ -41,14 +41,13 @@ const app = express();
 
 app.use(pinoHttp());
 
-useRoutes(
-  {
-    dicomFileUploadService,
-    dicomGetAttributeValidator,
-    dicomRecordCreateValidator,
-    dicomRecordsController,
-  },
-  app,
-);
+const routes = buildRoutes({
+  dicomFileUploadService,
+  dicomGetAttributeValidator,
+  dicomRecordCreateValidator,
+  dicomRecordsController,
+});
+
+app.use('/api/2024-03', routes);
 
 module.exports = {app};

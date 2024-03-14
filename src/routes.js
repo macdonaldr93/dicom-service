@@ -1,3 +1,5 @@
+const express = require('express');
+
 /**
  * Attach routes to Express app
  *
@@ -8,7 +10,9 @@
  * @param {import('./validators/dicom-record-create-validator').DICOMRecordCreateValidator} deps.dicomRecordCreateValidator The DICOM record create validator
  * @param {import('express').Express} app The Express app
  */
-function useRoutes(deps, app) {
+function buildRoutes(deps) {
+  const router = express.Router();
+
   const {
     dicomFileUploadService,
     dicomGetAttributeValidator,
@@ -16,7 +20,7 @@ function useRoutes(deps, app) {
     dicomRecordsController,
   } = deps;
 
-  app
+  router
     .route('/dicom-records')
     .post(
       [
@@ -26,15 +30,17 @@ function useRoutes(deps, app) {
       (req, res) => dicomRecordsController.create(req, res),
     );
 
-  app.route('/dicom-records/:id.png').get((req, res) => {
+  router.route('/dicom-records/:id.png').get((req, res) => {
     dicomRecordsController.viewAsImage(req, res);
   });
 
-  app
+  router
     .route('/dicom-records/:id/attr')
     .get(dicomGetAttributeValidator.middleware(), (req, res) =>
       dicomRecordsController.getTag(req, res),
     );
+
+  return router;
 }
 
-module.exports = {useRoutes};
+module.exports = {buildRoutes};
