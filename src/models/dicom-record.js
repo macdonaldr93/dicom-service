@@ -15,6 +15,50 @@ const DICOMRecord = db.define(
       autoIncrement: true,
       primaryKey: true,
     },
+    AccessionNumber: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    ImageType: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    InstitutionAddress: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    InstitutionName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    Manufacturer: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    PatientID: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    PatientName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    PatientSex: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    ReferringPhysicianName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    SOPClassUID: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    SOPInstanceUID: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     timestamps: true,
