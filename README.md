@@ -1,5 +1,7 @@
 # DICOM service
 
+[![test | dicom-service](https://github.com/macdonaldr93/dicom-service/actions/workflows/test-dicom-service.yml/badge.svg?branch=main)](https://github.com/macdonaldr93/dicom-service/actions/workflows/test-dicom-service.yml)
+
 DICOM service for handling DICOM uploads, extracting tags, and viewing DICOM as images.
 
 ## Commands
