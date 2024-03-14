@@ -1,0 +1,19 @@
+# Exclude "build-time" ignore files.
+.dockerignore
+.env
+.env.*
+.nvmrc
+
+# temporary files
+tmp
+
+# local dependencies
+node_modules
+
+# logs
+logs
+*.log
+npm-debug.log*
+
+# documentation
+README.md
