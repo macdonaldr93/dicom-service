@@ -20,3 +20,12 @@ Please design a RESTful API that exposes an interface for the functionality desc
 ## C4 Diagram
 
 ![C4 Diagram](images/dicom-service-c4.drawio.png)
+
+## Future considerations
+
+- Add a job server for generating common formats on upload (i.e. PNG, JPG, etc.)
+- Normalize and improve modeling of DICOM tags for DICOM record model
+- Use a library for building the image from the DICOM file, or complete code based on DICOM spec
+- Add end-to-end tests
+- Add error reporting service (Sentry, Bugsnag)
+- Report server metrics and key business metrics (Datadog)
