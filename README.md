@@ -6,13 +6,15 @@ DICOM service for handling DICOM uploads, extracting tags, and viewing DICOM as 
 
 ## Commands
 
-| Command    | Description                                        |
-| ---------- | -------------------------------------------------- |
-| dev        | Starts a dev server with hot reloading             |
-| lint       | Lints all source code                              |
-| start      | Starts a server for production                     |
-| test       | Runs tests for source code                         |
-| test:watch | Runs tests for source code and watches for changes |
+| Command      | Description                                                              |
+| ------------ | ------------------------------------------------------------------------ |
+| dev          | Starts a dev server with hot reloading                                   |
+| docker-build | Builds docker container                                                  |
+| docker:dev   | Starts a server using [Docker Compose](https://docs.docker.com/compose/) |
+| lint         | Lints all source code                                                    |
+| start        | Starts a server for production                                           |
+| test         | Runs tests for source code                                               |
+| test:watch   | Runs tests for source code and watches for changes                       |
 
 ## How to use this repo
 
