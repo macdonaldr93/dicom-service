@@ -1,5 +1,6 @@
 const {v4} = require('uuid');
 const express = require('express');
+const helmet = require('helmet');
 const pinoHttp = require('pino-http');
 
 const {
@@ -61,6 +62,7 @@ async function createApp() {
       },
     }),
   );
+  app.use(helmet());
 
   const routes = buildRoutes({
     dicomFileUploadService,
