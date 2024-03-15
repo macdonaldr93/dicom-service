@@ -41,10 +41,11 @@ class DICOMRecordCreateValidator {
     }
 
     if (this.errors.length === 0) {
-      // eslint-disable-next-line node/callback-return
-      next();
+      return next();
     } else {
-      res.status(422).json({errors: this.errors.map((err) => err.toJSON())});
+      return res
+        .status(422)
+        .json({errors: this.errors.map((err) => err.toJSON())});
     }
   }
 }
